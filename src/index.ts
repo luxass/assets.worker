@@ -1,14 +1,14 @@
-export interface Env {
-  GITHUB_TOKEN: string
-}
+export interface Env {}
 
 export default {
   async fetch(
     request,
-    env,
-    ctx,
   ): Promise<Response> {
     const url = new URL(request.url);
-    return new Response(`Hello ${url.searchParams.get("name") || "World"}!`);
+    if (url.pathname === "/") {
+      url.pathname = "/README.md";
+    }
+    const branch = url.searchParams.get("branch") || "main";
+    return fetch(`https://raw.githubusercontent.com/luxass/assets/${branch}/${url.pathname}`);
   },
 } satisfies ExportedHandler<Env>;
