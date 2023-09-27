@@ -9,6 +9,6 @@ export default {
     ctx,
   ): Promise<Response> {
     const url = new URL(request.url);
-    return new Response(`Hello ${url.searchParams.get('name') || 'World'}!`);
+    return new Response(`Hello ${url.searchParams.get("name") || "World"}!`);
   },
 } satisfies ExportedHandler<Env>;
