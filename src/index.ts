@@ -5,6 +5,9 @@ export default {
     request,
   ): Promise<Response> {
     const url = new URL(request.url);
+    if (url.pathname === "/view-source") {
+      return Response.redirect("https://github.com/luxass/assets", 301);
+    }
     if (url.pathname === "/") {
       url.pathname = "/README.md";
     }
