@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Workers (production)
+name: Deploy to Cloudflare Workers (staging)
 
 on:
   workflow_dispatch:
@@ -7,9 +7,10 @@ on:
         description: Run the workflow without creating a deployment
         required: false
         default: "false"
-  push:
+  pull_request:
     branches:
       - main
+    types: [opened, synchronize]
 
 jobs:
   ci:
@@ -65,4 +66,4 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          environment: production
+          environment: staging
