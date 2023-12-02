@@ -16,7 +16,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to production
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
