@@ -95,13 +95,11 @@ app.get('api/font/:family/:weight/:text?', async (ctx) => {
 
 app.use(async (ctx) => {
   const url = new URL(ctx.req.url)
-  const { pathname } = url
-
-  if (url.pathname === "/") {
-    url.pathname = "/README.md";
+  if (url.pathname === '/') {
+    url.pathname = '/README.md'
   }
-  const branch = url.searchParams.get("branch") || "main";
-  return fetch(`https://raw.githubusercontent.com/luxass/assets/${branch}/${url.pathname}`);
+  const branch = url.searchParams.get('branch') || 'main'
+  return fetch(`https://raw.githubusercontent.com/luxass/assets/${branch}/${url.pathname}`)
 })
 
 app.onError(async (err, ctx) => {
