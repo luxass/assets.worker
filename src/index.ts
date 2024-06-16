@@ -13,8 +13,12 @@ app.get("/view-source", (c) => {
   return c.redirect("https://github.com/luxass/assets", 301);
 });
 
+app.get("/ping", (c) => {
+  return c.text("pong");
+});
+
 app.get(
-  "/api/font/*",
+  "/api/fonts/*",
   async (c, next) => {
     if (c.env.ENVIRONMENT !== "production" && c.env.ENVIRONMENT !== "staging") {
       return await next();
@@ -44,7 +48,7 @@ app.get(
   },
 );
 
-app.get("api/font/:family/:weight/:text?", async (c) => {
+app.get("/api/fonts/:family/:weight/:text?", async (c) => {
   const url = new URL(c.req.url);
   const { family: _family, weight, text } = c.req.param();
 
