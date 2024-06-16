@@ -152,16 +152,19 @@ func FontHandlerInternal(c echo.Context, options FontHandlerOptions) error {
 	}
 	defer fontResp.Body.Close()
 
-	// read the body of the font response
-	fontBody, err := io.ReadAll(fontResp.Body)
-	if err != nil {
-		return err
-	}
-
 	c.Response().Header().Set("Content-Type", "font/ttf")
 	c.Response().Header().Set("Vercel-CDN-Cache-Control", "max-age=86400")
 	c.Response().Header().Set("CDN-Cache-Control", "max-age=86400")
 	c.Response().Header().Set("Cache-Control", "public, s-maxage=86400")
 
-	return c.Blob(http.StatusOK, "font/ttf", fontBody)
+	// _, err := io.Copy(c.Response(), fontResp.Body)
+
+	// return c.Blob(http.StatusOK, "font/ttf", fontBody)
+
+	c.Response().Header().Set("Vercel-CDN-Cache-Control", "max-age=3600")
+	c.Response().Header().Set("CDN-Cache-Control", "max-age=3600")
+	c.Response().Header().Set("Cache-Control", "public, s-maxage=3600")
+
+	_, err = io.Copy(c.Response(), resp.Body)
+	return err
 }
