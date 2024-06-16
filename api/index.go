@@ -66,7 +66,8 @@ func FaviconProxy(c echo.Context) error {
 func ProxyResponse(c echo.Context, resp *http.Response) error {
 	c.Response().Header().Set("Content-Type", resp.Header.Get("Content-Type"))
 
-	// set cache control headers
+	c.Response().Header().Set("Vercel-CDN-Cache-Control", "max-age=3600")
+	c.Response().Header().Set("CDN-Cache-Control", "max-age=3600")
 	c.Response().Header().Set("Cache-Control", "public, s-maxage=3600")
 
 	_, err := io.Copy(c.Response(), resp.Body)
@@ -158,6 +159,8 @@ func FontHandlerInternal(c echo.Context, options FontHandlerOptions) error {
 	}
 
 	c.Response().Header().Set("Content-Type", "font/ttf")
+	c.Response().Header().Set("Vercel-CDN-Cache-Control", "max-age=86400")
+	c.Response().Header().Set("CDN-Cache-Control", "max-age=86400")
 	c.Response().Header().Set("Cache-Control", "public, s-maxage=86400")
 
 	return c.Blob(http.StatusOK, "font/ttf", fontBody)
