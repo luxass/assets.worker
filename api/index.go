@@ -13,6 +13,8 @@ import (
 func Handler(w http.ResponseWriter, r *http.Request) {
 	e := echo.New()
 
+	e.Use(ServerHeader)
+
 	e.GET("/favicon.ico", FaviconProxy)
 	e.GET("/view-source", ViewSource)
 
@@ -22,6 +24,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	e.GET("/*", ContentProxy)
 
 	e.ServeHTTP(w, r)
+}
+
+func ServerHeader(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		c.Response().Header().Set(echo.HeaderServer, "Echo/3.0")
+		return next(c)
+	}
 }
 
 func ViewSource(c echo.Context) error {
