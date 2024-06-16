@@ -13,13 +13,14 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'luxass'
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
 
       - name: Setup node
         uses: actions/setup-node@v4
