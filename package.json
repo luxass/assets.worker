@@ -14,7 +14,7 @@
     "hono": "^4.4.6"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240614.0",
+    "@cloudflare/workers-types": "^4.20240620.0",
     "@luxass/eslint-config": "^4.7.0",
     "eslint": "^9.6.0",
     "typescript": "^5.5.2",
