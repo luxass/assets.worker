@@ -1,5 +1,8 @@
 # assets.worker
 
+> [!IMPORTANT]
+> We are moved to [here](https://github.com/luxass/cloudflare-workers/blob/main/apps/assets.worker)
+
 A simple cloudflare worker that proxies requests to my assets stored on GitHub.
 
 ## Usage
